@@ -27,10 +27,12 @@ function uploadBudgetItem() {
     const transaction = db.transaction( [ 'new_budget' ], 'readwrite' );
     const budgetObjectStore = transaction.objectStore( 'new_budget' );
     const getAll = budgetObjectStore.getAll()
-
+    
     getAll.onsuccess = function() {
+        console.log( getAll.result )
         if( getAll.result.length > 0 ){
-            fetch( '/api/transaction', {
+            console.log( JSON.stringify( getAll.result) )
+            fetch( '/api/transaction/bulk', {
                 method: 'POST',
                 body: JSON.stringify( getAll.result ),
                 headers: {
@@ -40,6 +42,7 @@ function uploadBudgetItem() {
             } )
             .then( response => response.json() )
             .then( serverResponse => {
+                console.log( serverResponse )
                 if( serverResponse.message ){
                     throw new Error( serverResponse )
                 }
