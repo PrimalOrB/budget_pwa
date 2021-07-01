@@ -111,6 +111,8 @@ function sendTransaction(isAdding) {
   populateChart();
   populateTable();
   populateTotal();
+
+  alert('Storing new value')
   
   // also send to server
   fetch("/api/transaction", {
